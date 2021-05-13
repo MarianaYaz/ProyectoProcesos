@@ -1,21 +1,12 @@
-
+drop database Prestamos;
 CREATE SCHEMA IF NOT EXISTS Prestamos;
 USE  Prestamos;
 
-  CREATE TABLE IF NOT EXISTS Jefe(curp varchar(18) NOT NULL, 
+CREATE TABLE IF NOT EXISTS Encargado(curp varchar(18) NOT NULL, 
   nombre varchar(200) NOT NULL, 
   numPersonal varchar(20) NOT NULL, turno varchar(30) NOT NULL, 
-  primary key (curp));
-  
-  CREATE TABLE IF NOT EXISTS Encargado(curp varchar(18) NOT NULL, 
-  nombre varchar(200) NOT NULL, curpJefe varchar(18) NOT NULL,
-  numPersonal varchar(20) NOT NULL, turno varchar(30) NOT NULL, 
-  foreign key(curpJefe) references Jefe(curp),
-  primary key (curp));
-  
-  CREATE TABLE IF NOT EXISTS Credenciales(
   correoElectronico varchar(100) NOT NULL, contrasenia blob NOT NULL,
-  primary key (correoElectronico));
+  primary key (curp));
                
    CREATE TABLE IF NOT EXISTS Prestamo (idPrestamo int NOT NULL auto_increment, idPrestamista varchar(10) not null,
  nombrePrestamista varchar(80) not null, fechaPrestamo varchar(15) not null, motivo varchar( 100) not null, horaPrestamo varchar(5) not null,
@@ -28,3 +19,23 @@ USE  Prestamos;
                                         PRIMARY KEY (idDevolucion));
                                                      
  
+CREATE TABLE IF NOT EXISTS ControlProyector (clave varchar(12) not null, estado varchar(15) not null, 
+                                             fechaRegistro varchar(15) not null, descripcion varchar(50) not null,
+                                             marca varchar(15) not null, salaAsignada varchar(10) not null,
+                                             PRIMARY KEY (clave));
+                                                          
+CREATE TABLE IF NOT EXISTS Laptop (clave varchar(12) not null, estado varchar(15) not null, 
+                                             fechaRegistro varchar(15) not null, descripcion varchar(50) not null,
+                                             marca varchar(15) not null, modelo varchar(15) not null,
+                                             PRIMARY KEY (clave));
+                                                          
+CREATE TABLE IF NOT EXISTS Cable (clave varchar(12) not null, estado varchar(15) not null, 
+                                             fechaRegistro varchar(15) not null, descripcion varchar(50) not null,
+                                             tipo varchar(15) not null,
+                                             PRIMARY KEY (clave));                 
+                                                          
+CREATE TABLE IF NOT EXISTS Conector (clave varchar(12) not null, estado varchar(15) not null, 
+                                             fechaRegistro varchar(15) not null, descripcion varchar(50) not null,
+                                             tipo varchar(15) not null,
+                                             PRIMARY KEY (clave));                                                                           
+                                             
