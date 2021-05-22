@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS Credenciales(
   
 CREATE TABLE IF NOT EXISTS Prestamo (idPrestamo int NOT NULL auto_increment, idPrestamista varchar(12) not null,
  nombrePrestamista varchar(80) not null, fechaPrestamo varchar(15) not null, motivo varchar( 100) not null, horaPrestamo varchar(5) not null,
- lugarPrestamo varchar(50), idDevolucion int not null, primary key (idPrestamo));
+ lugarPrestamo varchar(50), primary key (idPrestamo));
   
    CREATE TABLE IF NOT EXISTS Devolucion (idDevolucion int NOT NULL auto_increment, horaDevolucion varchar(5) not null, fechaDevolucion varchar(15) not null,
                                         comentario varchar(100) not null, presentaProblema varchar(2) not null, idPrestamo int NOT NULL,
