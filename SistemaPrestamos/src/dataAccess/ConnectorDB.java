@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dataAccess;
 
 import java.io.FileInputStream;
@@ -24,7 +20,7 @@ public class ConnectorDB {
             Properties properties = new Properties();
             FileInputStream fileInputStream;
             try {
-                fileInputStream = new FileInputStream("./properties.properties");
+                fileInputStream = new FileInputStream("./Datos.properties");
                 properties.load(fileInputStream);
             } catch (IOException ex) {
                  Logger.getLogger(ConnectorDB.class.getName()).log(Level.SEVERE, null, ex);
