@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS Credenciales(
   correoElectronico varchar(100) NOT NULL, contrasenia blob NOT NULL,
   primary key (correoElectronico));
   
-CREATE TABLE IF NOT EXISTS Prestamo (idPrestamo int NOT NULL auto_increment, idPrestamista varchar(10) not null,
+CREATE TABLE IF NOT EXISTS Prestamo (idPrestamo int NOT NULL auto_increment, idPrestamista varchar(12) not null,
  nombrePrestamista varchar(80) not null, fechaPrestamo varchar(15) not null, motivo varchar( 100) not null, horaPrestamo varchar(5) not null,
  lugarPrestamo varchar(50), idDevolucion int not null, primary key (idPrestamo));
   
