@@ -1,12 +1,12 @@
 package domain;
 
-public class Encargado {
+public class Jefe {
     private String curp;
     private String nombre;
     private String numeroPersonal;
     private String turno;
     
-    public Encargado(String curp, String nombre, String numeroPersonal, String turno){
+    public Jefe(String curp, String nombre, String numeroPersonal, String turno){
         this.curp = curp;
         this.nombre = nombre;
         this.numeroPersonal = numeroPersonal;
@@ -35,13 +35,5 @@ public class Encargado {
     
     public String getNumeroPersonal(){
         return numeroPersonal;
-    }
-
-    public void setTurno(String turno){
-        this.turno = turno;
-    }
-    
-    public String getTurno(){
-        return turno;
     }   
 }

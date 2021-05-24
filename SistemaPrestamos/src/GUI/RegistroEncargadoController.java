@@ -8,24 +8,12 @@ package GUI;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextField;
 
-/**
- * FXML Controller class
- *
- * @author kari
- */
-public class RegistroPrestamoController implements Initializable {
+public class RegistroEncargadoController implements Initializable {
 
-    private TextField tfCurp;
-    private TextField tfNombre;
-    private TextField tfNumeroPersonal;
-    private TextField tfTurno;
-    private TextField tfContrasenia;
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }    
     
 }
