@@ -8,6 +8,12 @@ package domain;
 public class ControlProyector extends Dispositivo{
     private String marca;
     private String salaAsignada;
+    
+    public ControlProyector(String marca, String salaAsignada, String clave, String descripcion, String fechaRegistro, String estado){
+        super(clave, descripcion, fechaRegistro, estado);
+        this.marca = marca;
+        this.salaAsignada = salaAsignada;
+    }
 
     public String getMarca() {
         return marca;
