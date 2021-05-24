@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class PrestamoDAO {
     
     
-    public boolean guardadoExitoso(Prestamo prestamo)  {
+    public int recuperarId(Prestamo prestamo)  {
         boolean value=false;
         int id=0;
          try {   

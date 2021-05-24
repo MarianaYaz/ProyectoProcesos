@@ -8,12 +8,15 @@ package GUI;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
 
 /**
@@ -27,10 +30,24 @@ public class RegistroPrestamoController implements Initializable {
     @FXML TextField tfNombrePrestamista;
     @FXML TextField tfHora;
     @FXML TextField tfLugar;
-    @FXML TextArea taMotivo;
+     @FXML TextArea taMotivo;
     @FXML DatePicker dpFecha;
     @FXML ComboBox cbDispositivos;
+    @FXML Button btGuardar;
+    @FXML Button btSalir;
 
+    
+    
+     @FXML 
+    private void actionGuardar(ActionEvent actionEvent){   
+        
+    }
+    
+    @FXML 
+    private void actionSalir(ActionEvent actionEvent){   
+        Stage stage = (Stage) btSalir.getScene().getWindow();
+        stage.close();
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
