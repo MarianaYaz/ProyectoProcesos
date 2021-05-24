@@ -18,7 +18,39 @@ import java.util.logging.Logger;
 public class PrestamoDAO {
     
     
-    
+    public boolean guardadoExitoso(Prestamo prestamo)  {
+        boolean value=false;
+        int id=0;
+         try {   
+                ConnectorDB connectorDataBase=new ConnectorDB();
+                Connection connectionDataBase;
+                connectionDataBase = connectorDataBase.getConnection();
+        
+                String insertGroupAcademic = "Select * from  Prestamo where idPrestamista=? and nombrePrestamista=? and fechaPrestamo=? and motivo=? horaPrestamo=? and lugarPrestamo=?";
+            
+                PreparedStatement preparedStatement;
+        
+             preparedStatement = connectionDataBase.prepareStatement(insertGroupAcademic);
+                
+                preparedStatement.setString(1,prestamo.getIdPrestamista());
+                preparedStatement.setString(2,prestamo.getNombrePrestamista());
+                preparedStatement.setString(3,prestamo.getFecha());
+                preparedStatement.setString(4,prestamo.getMotivo());
+                preparedStatement.setString(5,prestamo.getHora());
+                preparedStatement.setString(6,prestamo.getLugar());
+                
+                
+                preparedStatement.executeUpdate();
+                connectorDataBase.disconnect();
+                value=true;
+                } catch (SQLException ex) {
+            Logger.getLogger(PrestamoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PrestamoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
+        return id;
+    }
     
     public boolean guardadoExitoso(Prestamo prestamo)  {
         boolean value=false;
