@@ -48,6 +48,7 @@ public class RegistroPrestamoController implements Initializable {
         Stage stage = (Stage) btSalir.getScene().getWindow();
         stage.close();
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

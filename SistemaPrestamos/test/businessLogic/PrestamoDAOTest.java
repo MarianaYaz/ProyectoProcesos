@@ -31,6 +31,7 @@ public class PrestamoDAOTest {
         PrestamoDAO instance = new PrestamoDAO();
         ArrayList<Prestamo> prestamos = instance.getPrestamos();
     
+        System.out.println(prestamos.get(0));
         assertFalse(prestamos.isEmpty());
     }
     

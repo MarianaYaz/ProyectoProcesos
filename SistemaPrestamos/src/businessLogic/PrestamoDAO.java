@@ -107,6 +107,7 @@ public class PrestamoDAO {
                     String horaPrestamo=resultSet.getString("horaPrestamo");
                     String lugarPrestamo = resultSet.getString("lugarPrestamo");
                     Prestamo prestamo = new Prestamo(idPrestamista,nombrePrestamista, fechaPrestamo, motivo,lugarPrestamo, horaPrestamo);
+
                     prestamos.add(prestamo);
                 }
                 connectorDataBase.disconnect();
