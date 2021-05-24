@@ -91,6 +91,10 @@ VALUES ('FEI-CAB-155', 'Disponible','2020-05-17', 'Cable de ethernet color azul'
 INSERT INTO Cable (clave, estado, fechaRegistro, descripcion, tipo) 
 VALUES ('FEI-CAB-156', 'Disponible','2020-05-17', 'Cable USB de tipo C color negro','USB-C'); 
 
+CREATE TABLE IF NOT EXISTS PrestamoConector(idPrestamo int , claveDispositivo varchar(12) , foreign key (idPrestamo) REFERENCES Prestamo(idPrestamo), foreign key (claveDispositivo) REFERENCES Conector(clave));
+CREATE TABLE IF NOT EXISTS PrestamoCable(idPrestamo int , claveDispositivo varchar(12) , foreign key (idPrestamo) REFERENCES Prestamo(idPrestamo), foreign key (claveDispositivo) REFERENCES Cable(clave));
+CREATE TABLE IF NOT EXISTS PrestamoLaptop(idPrestamo int , claveDispositivo varchar(12) , foreign key (idPrestamo) REFERENCES Prestamo(idPrestamo), foreign key (claveDispositivo) REFERENCES Laptop(clave));
+CREATE TABLE IF NOT EXISTS PrestamoControlProyector(idPrestamo int , claveDispositivo varchar(12) , foreign key (idPrestamo) REFERENCES Prestamo(idPrestamo), foreign key (claveDispositivo) REFERENCES ControlProyector(clave));
 
 
 create user 'empleado'@'localhost' IDENTIFIED BY 'password1';
