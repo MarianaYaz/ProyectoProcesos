@@ -8,18 +8,40 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="GUI.RegistroDevolucionController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.RegistroDevolucionController">
     <stylesheets>
         <URL value="@registrodevolucion.css" />
     </stylesheets>
    <children>
       <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <Label layoutX="14.0" layoutY="25.0" text="PRÉSTAMO">
+            <Label layoutX="14.0" layoutY="25.0" text="DEVOLUCIÓN">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
+            <Label layoutX="14.0" layoutY="152.0" text="Fecha devolución:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="183.0" text="¿Presenta problema?">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="224.0" text="Comentarios:" />
+            <Label layoutX="14.0" layoutY="89.0" text="Dispositivo:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cbDispositivo" layoutX="84.0" layoutY="85.0" prefWidth="150.0" />
+            <DatePicker fx:id="dpFechaDevolucion" layoutX="139.0" layoutY="148.0" />
+            <ComboBox fx:id="cbPresentaProblema" layoutX="139.0" layoutY="179.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextArea fx:id="textAreaComentarios" layoutX="139.0" layoutY="224.0" prefHeight="78.0" prefWidth="392.0" />
+            <Button layoutX="371.0" layoutY="361.0" mnemonicParsing="false" onAction="#guardarPrestamo" prefHeight="25.0" prefWidth="101.0" text="Guardar" />
+            <Button layoutX="481.0" layoutY="361.0" mnemonicParsing="false" onAction="#cancelarDevolucion" prefHeight="25.0" prefWidth="101.0" text="Cancelar" />
          </children>
       </Pane>
    </children>
