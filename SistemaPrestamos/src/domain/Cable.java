@@ -21,4 +21,5 @@ public class Cable extends Dispositivo{
         this.tipo = tipo;
     }
 
+    
 }

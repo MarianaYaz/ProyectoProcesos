@@ -6,10 +6,10 @@ package domain;
  * @author kari
  */
 public class Dispositivo {
-    private String clave;
-    private String descripcion;
-    private String fechaRegistro;
-    private String estado;
+    protected String clave;
+    protected String descripcion;
+    protected String fechaRegistro;
+    protected String estado;
 
     public Dispositivo(String clave, String descripcion, String fechaRegistro, String estado) {
         this.clave = clave;
@@ -50,6 +50,11 @@ public class Dispositivo {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+    
+    public String toString(){   
+        return clave;
+    
     }
 
 }
