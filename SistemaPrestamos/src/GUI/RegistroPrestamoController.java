@@ -78,7 +78,9 @@ public class RegistroPrestamoController implements Initializable {
             prestamo.setIdPrestamo(prestamoDAO.getId(prestamo));
             Dispositivo dispositivo= (Dispositivo) cbDispositivos.getSelectionModel().getSelectedItem();
             prestamo.setDispositivo(dispositivo);
-            if(prestamoDAO.guardadoDispositivo(prestamo, opcionDispositivo)){
+            DispositivoDAO dispositivoDAO = new DispositivoDAO();
+            if(prestamoDAO.guardadoDispositivo(prestamo, opcionDispositivo) 
+            && dispositivoDAO.actualizarEstado(dispositivo.getClave(), opcionDispositivo, "Prestado") ){
                 enviarAlertaGuardado();
             }
         }
