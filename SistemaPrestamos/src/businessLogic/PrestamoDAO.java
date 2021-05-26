@@ -25,12 +25,14 @@ public class PrestamoDAO {
                 Connection connectionDataBase;
                 connectionDataBase = connectorDataBase.getConnection();
         
-                String insertGroupAcademic = "Select * from  Prestamo where idPrestamista=? and nombrePrestamista=? and fechaPrestamo=? and motivo=? horaPrestamo=? and lugarPrestamo=?";
+                String insertGroupAcademic = "Select idPrestamo from  Prestamo where idPrestamista=? and nombrePrestamista=? and fechaPrestamo=? and motivo=? horaPrestamo=? and lugarPrestamo=?";
             
                 PreparedStatement preparedStatement;
         
-             preparedStatement = connectionDataBase.prepareStatement(insertGroupAcademic);
-                
+                preparedStatement = connectionDataBase.prepareStatement(insertGroupAcademic);
+                ResultSet resultSet;
+                resultSet = preparedStatement.executeQuery();
+
                 preparedStatement.setString(1,prestamo.getIdPrestamista());
                 preparedStatement.setString(2,prestamo.getNombrePrestamista());
                 preparedStatement.setString(3,prestamo.getFecha());
@@ -38,8 +40,10 @@ public class PrestamoDAO {
                 preparedStatement.setString(5,prestamo.getHora());
                 preparedStatement.setString(6,prestamo.getLugar());
                 
+                if(resultSet.next()){   
+                    id= resultSet.getInt(1);
+                }
                 
-                preparedStatement.executeUpdate();
                 connectorDataBase.disconnect();
                 value=true;
                 } catch (SQLException ex) {
@@ -67,7 +71,8 @@ public class PrestamoDAO {
                preparedStatement.setString(1,prestamo.getIdPrestamista());
                 preparedStatement.setString(2,prestamo.getNombrePrestamista());
                 preparedStatement.setString(3,prestamo.getHora());
-                preparedStatement.setString(6,prestamo.getLugar());
+                preparedStatement.setString(4,prestamo.getFecha());
+                preparedStatement.setString(5,prestamo.getLugar());
                 resultSet = preparedStatement.executeQuery();
                                
                while(resultSet.next()){
@@ -123,22 +128,36 @@ public class PrestamoDAO {
                 ConnectorDB connectorDataBase=new ConnectorDB();
                 Connection connectionDataBase;
                 connectionDataBase = connectorDataBase.getConnection();
-                String insert;
-                
-                    insert = "INSERT INTO PrestamoCable(idPrestamo,claveDispositivo)";
+                String insert="";
+            switch(option){ 
+                case "Cable": ;
+                    insert = "INSERT INTO PrestamoCable(idPrestamo,claveDispositivo) values (?,?)";   
+                break;
+
+                case "Conector":;
+                  insert = "INSERT INTO PrestamoConector(idPrestamo,claveDispositivo) values(?,?)";
+
+                break;
+
+                case "Control de proyector":;
+                    insert = "INSERT INTO PrestamoControlProyector(idPrestamo,claveDispositivo) values(?,?)";
+
+                break;
+
+                case "Laptop":;
+                    insert = "INSERT INTO PrestamoLaptop(idPrestamo,claveDispositivo) values(?,?)";
+
+                break;
             
-                PreparedStatement preparedStatement;
-        
-             preparedStatement = connectionDataBase.prepareStatement(insert);
-                
-                preparedStatement.setInt(1,prestamo.getIdPrestamo());
-                preparedStatement.setString(2, prestamo.getDispositivo().getClave());
-                
-                
-                preparedStatement.executeUpdate();
-                connectorDataBase.disconnect();
-                value=true;
-                } catch (SQLException ex) {
+         }           
+         PreparedStatement preparedStatement;
+         preparedStatement = connectionDataBase.prepareStatement(insert);               
+         preparedStatement.setInt(1,prestamo.getIdPrestamo());
+         preparedStatement.setString(2, prestamo.getDispositivo().getClave());               
+         preparedStatement.executeUpdate();
+         connectorDataBase.disconnect();
+         value=true;
+        } catch (SQLException ex) {
             Logger.getLogger(PrestamoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(PrestamoDAO.class.getName()).log(Level.SEVERE, null, ex);

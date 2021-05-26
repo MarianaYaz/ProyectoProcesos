@@ -6,11 +6,13 @@
 package GUI;
 
 import businessLogic.DispositivoDAO;
+import businessLogic.PrestamoDAO;
 import domain.Cable;
 import domain.Conector;
 import domain.ControlProyector;
 import domain.Dispositivo;
 import domain.Laptop;
+import domain.Prestamo;
 import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +23,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -47,21 +50,64 @@ public class RegistroPrestamoController implements Initializable {
     @FXML ComboBox cbDispositivos;
     @FXML Button btGuardar;
     @FXML Button btSalir;
-
+    private String opcionDispositivo;
     
     
      @FXML 
     private void actionGuardar(ActionEvent actionEvent){   
-        
+        if(!validarCamposVacios()){
+            int idPrestamo;
+            String idPrestamista=tfIdPrestamista.getText();
+            String nombrePrestamista=tfNombrePrestamista.getText();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String fecha=dpFecha.getValue().format(formatter);
+            String motivo=taMotivo.getText();
+            String lugar=tfLugar.getText();
+            String hora=tfHora.getText();
+            //String idPrestamista, String nombrePrestamista, String fecha, String motivo, String lugar, String hora
+            Prestamo prestamo = new Prestamo(idPrestamista,nombrePrestamista,fecha,motivo,lugar,hora);
+            if(!buscarRepetido(prestamo)){  
+                guardar(prestamo);
+            }
+        }
     }
     
+    private void guardar(Prestamo prestamo){    
+        PrestamoDAO prestamoDAO = new PrestamoDAO();    
+        if(prestamoDAO.guardadoExitoso(prestamo)){  
+            prestamo.setIdPrestamo(prestamoDAO.getId(prestamo));
+            Dispositivo dispositivo= (Dispositivo) cbDispositivos.getSelectionModel().getSelectedItem();
+            prestamo.setDispositivo(dispositivo);
+            if(prestamoDAO.guardadoDispositivo(prestamo, opcionDispositivo)){
+                enviarAlertaGuardado();
+            }
+        }
+    
+    };
+    
+    private void enviarAlertaGuardado(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText(null);
+        alert.setTitle("Información guardada");
+        alert.setContentText("El prestamo ha sido guardado con exito");
+        alert.showAndWait();
+    }
+    private boolean buscarRepetido(Prestamo prestamo){
+        boolean value=true;
+        PrestamoDAO prestamoDAO = new PrestamoDAO();    
+        if(prestamoDAO.getId(prestamo) != 0 ){  
+            value=false;
+        }
+        return false;
+    
+    }
     @FXML 
     private void actionSalir(ActionEvent actionEvent){   
         Stage stage = (Stage) btSalir.getScene().getWindow();
         stage.close();
     }
 
-    private String opcionDispositivo;
+    
 
 
     @Override
@@ -110,8 +156,18 @@ public class RegistroPrestamoController implements Initializable {
             
          }
        cbDispositivos.setItems(dispositivos);
-
-        
+       cbDispositivos.getSelectionModel().selectFirst();
+    }
+    
+    private boolean validarCamposVacios(){  
+        boolean value=false;
+          if(tfIdPrestamista.getText().isEmpty() || tfNombrePrestamista.getText().isEmpty() 
+           || tfHora.getText().isEmpty()  || taMotivo.getText().isEmpty() || tfLugar.getText().isEmpty() 
+           || dpFecha.getValue()== null){
+              value=true;
+          }
+          return value;
+    
     }
     
     
