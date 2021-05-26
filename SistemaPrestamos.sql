@@ -96,6 +96,7 @@ CREATE TABLE IF NOT EXISTS PrestamoCable(idPrestamo int , claveDispositivo varch
 CREATE TABLE IF NOT EXISTS PrestamoLaptop(idPrestamo int , claveDispositivo varchar(12) , foreign key (idPrestamo) REFERENCES Prestamo(idPrestamo), foreign key (claveDispositivo) REFERENCES Laptop(clave));
 CREATE TABLE IF NOT EXISTS PrestamoControlProyector(idPrestamo int , claveDispositivo varchar(12) , foreign key (idPrestamo) REFERENCES Prestamo(idPrestamo), foreign key (claveDispositivo) REFERENCES ControlProyector(clave));
 
+alter table devolucion drop column presentaProblema;    
 
 create user 'empleado'@'localhost' IDENTIFIED BY 'password1';
 
