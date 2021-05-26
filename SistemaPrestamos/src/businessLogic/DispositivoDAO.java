@@ -18,9 +18,10 @@ import java.util.logging.Logger;
  *
  * @author david
  */
-public class DispositivoDAO {
+public class DispositivoDAO implements IDispositivoDAO{
     
     
+    @Override
     public ArrayList<Cable> getCables(){
         ConnectorDB connectorDataBase=new ConnectorDB();
         String sql = "SELECT * FROM Cable";
@@ -50,6 +51,7 @@ public class DispositivoDAO {
         return cables;
     } 
     
+    @Override
     public ArrayList<Conector> getConectores(){
         ConnectorDB connectorDataBase=new ConnectorDB();
         String sql = "SELECT * FROM Conector";
@@ -79,6 +81,7 @@ public class DispositivoDAO {
         return conectores;
     }
     
+    @Override
     public ArrayList<ControlProyector> getControlesProyectores(){
         ConnectorDB connectorDataBase=new ConnectorDB();
         String sql = "SELECT * FROM Conector";
@@ -109,6 +112,7 @@ public class DispositivoDAO {
         return controlesProyectores;
     }
     
+    @Override
     public ArrayList<Laptop> getLaptops(){
         ConnectorDB connectorDataBase=new ConnectorDB();
         String sql = "SELECT * FROM Conector";

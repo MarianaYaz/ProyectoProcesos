@@ -9,6 +9,7 @@ public class Devolucion {
     private String comentario;
     private String fechaDevolucion;
     private String horaDevolucion;
+    private Prestamo prestamo;
 
     public Devolucion(String comentario, String fechaDevolucion, String horaDevolucion) {
         this.comentario = comentario;
@@ -28,6 +29,10 @@ public class Devolucion {
         return horaDevolucion;
     }
 
+    public Prestamo getPrestamo() {
+        return prestamo;
+    }
+    
     public void setComentario(String comentario) {
         this.comentario = comentario;
     }
@@ -38,6 +43,10 @@ public class Devolucion {
 
     public void setHoraDevolucion(String horaDevolucion) {
         this.horaDevolucion = horaDevolucion;
+    }
+
+    public void setPrestamo(Prestamo prestamo) {
+        this.prestamo = prestamo;
     }
     
 }
