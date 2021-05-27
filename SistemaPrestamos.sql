@@ -22,12 +22,13 @@ CREATE TABLE IF NOT EXISTS Prestamo (idPrestamo int NOT NULL auto_increment, idP
  nombrePrestamista varchar(80) not null, fechaPrestamo varchar(15) not null, motivo varchar( 100) not null, horaPrestamo varchar(5) not null,
  lugarPrestamo varchar(50), primary key (idPrestamo));
   
-CREATE TABLE IF NOT EXISTS Devolucion (idDevolucion int NOT NULL auto_increment, horaDevolucion varchar(5) not null, fechaDevolucion varchar(15) not null,
+   CREATE TABLE IF NOT EXISTS Devolucion (idDevolucion int NOT NULL auto_increment, horaDevolucion varchar(5) not null, fechaDevolucion varchar(15) not null,
                                         comentario varchar(100) not null, presentaProblema varchar(2) not null, idPrestamo int NOT NULL,
                                         PRIMARY KEY (idDevolucion), foreign key (idPrestamo) REFERENCES Prestamo(idPrestamo));
                                                    
-alter table devolucion drop column presentaProblema;            
-                                        
+                                                   
+
+                                                     
  
 CREATE TABLE IF NOT EXISTS ControlProyector (clave varchar(12) not null, estado varchar(15) not null, 
                                              fechaRegistro varchar(15) not null, descripcion varchar(50) not null,
@@ -86,11 +87,6 @@ VALUES ('FEI-CAB-155', 'Disponible','2020-05-17', 'Cable de ethernet color azul'
                                                           
 INSERT INTO Cable (clave, estado, fechaRegistro, descripcion, tipo) 
 VALUES ('FEI-CAB-156', 'Disponible','2020-05-17', 'Cable USB de tipo C color negro','USB-C'); 
-
-CREATE TABLE IF NOT EXISTS PrestamoConector(idPrestamo int , claveDispositivo varchar(12) , foreign key (idPrestamo) REFERENCES Prestamo(idPrestamo), foreign key (claveDispositivo) REFERENCES Conector(clave));
-CREATE TABLE IF NOT EXISTS PrestamoCable(idPrestamo int , claveDispositivo varchar(12) , foreign key (idPrestamo) REFERENCES Prestamo(idPrestamo), foreign key (claveDispositivo) REFERENCES Cable(clave));
-CREATE TABLE IF NOT EXISTS PrestamoLaptop(idPrestamo int , claveDispositivo varchar(12) , foreign key (idPrestamo) REFERENCES Prestamo(idPrestamo), foreign key (claveDispositivo) REFERENCES Laptop(clave));
-CREATE TABLE IF NOT EXISTS PrestamoControlProyector(idPrestamo int , claveDispositivo varchar(12) , foreign key (idPrestamo) REFERENCES Prestamo(idPrestamo), foreign key (claveDispositivo) REFERENCES ControlProyector(clave));   
 
 create user 'empleado'@'localhost' IDENTIFIED BY 'password1';
 GRANT SELECT,INSERT,DELETE,UPDATE ON prestamos.* TO 'empleado'@'localhost';
