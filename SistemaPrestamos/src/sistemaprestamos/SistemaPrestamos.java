@@ -5,9 +5,18 @@
  */
 package sistemaprestamos;
 
+import GUI.RegistroDevolucionController;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -20,25 +29,30 @@ import javafx.stage.Stage;
 public class SistemaPrestamos extends Application {
     
     @Override
-    public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+   public void start(Stage primaryStage) {
+        
+        try{
             
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
+            URL url = new File("src/GUI/RegistroDevolucion.fxml").toURI().toURL();
+            try{
+                FXMLLoader loader = new FXMLLoader(url);
+                loader.setLocation(url);
+                loader.load();
+                RegistroDevolucionController registroDevolucionController =loader.getController();
+                Parent root = loader.getRoot();
+                Scene scene = new Scene(root);
+                primaryStage.setScene(scene);
+                
+            } catch (IOException ex) {
+               Logger.getLogger(SistemaPrestamos.class.getName()).log(Level.SEVERE, null, ex);
+
             }
-        });
+            primaryStage.show();
+            
+        } catch (MalformedURLException ex) {
+               Logger.getLogger(SistemaPrestamos.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
     }
 
     /**
