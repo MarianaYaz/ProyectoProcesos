@@ -23,6 +23,7 @@ public class MenuOpcionesController implements Initializable {
     @FXML Button btRegistrarPrestamo;
     @FXML Button btRegistrarDevolucion;
     @FXML Button btSalir;
+    String tipo;
 
     @FXML  
     private void registrarEncargado(ActionEvent actionEvent){
@@ -77,7 +78,14 @@ public class MenuOpcionesController implements Initializable {
         Stage stage = (Stage) btSalir.getScene().getWindow();
         stage.close();
     }
-  
+    
+    public void inicializarTipo(String tipo){
+        this.tipo = tipo;
+        if(tipo.equals("Encargado")){
+             btRegistrarEncargado.setDisable(true);
+        }
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         

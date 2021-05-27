@@ -132,8 +132,8 @@ public class RegistroEncargadoController implements Initializable {
     public boolean estaRegistrado(Credencial credencial){
         boolean value = false;
         CredencialDAO credencialDAO = new CredencialDAO();
-        String correo = credencialDAO.buscarCorreo(credencial);
-        if(!correo.isEmpty()){
+        Credencial credencialRecuperada = credencialDAO.buscarCredencial(credencial);
+        if(credencialRecuperada != null){
             value = true;
         }
         return value;

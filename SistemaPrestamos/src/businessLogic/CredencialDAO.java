@@ -8,6 +8,7 @@ package businessLogic;
 import dataAccess.ConnectorDB;
 import domain.Credencial;
 import domain.Encargado;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,18 +50,21 @@ public class CredencialDAO {
         return saveSuccess;
     } 
     
-   public String buscarCorreo(Credencial credencial) {
-        String curp = "";
+   public Credencial buscarCredencial(Credencial credencial) {
+        Credencial credencialRecuperada = null;
         try{
             ConnectorDB connectorDataBase=new ConnectorDB();
             Connection connectionDataBase = connectorDataBase.getConnection();
             ResultSet resultSet;
-            PreparedStatement preparedStatement = connectionDataBase.prepareStatement("SELECT correoElectronico from Credenciales where correoElectronico=? ");
+            PreparedStatement preparedStatement = connectionDataBase.prepareStatement("SELECT correoElectronico,contrasenia,tipo from Credenciales where correoElectronico=? ");
             preparedStatement.setString(1, credencial.getCorreo());          
             
             resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-                curp = resultSet.getString("correoElectronico");
+                String correo = resultSet.getString("correoElectronico");
+                String tipo = resultSet.getString("tipo");
+                Blob contrasenia = resultSet.getBlob("contrasenia");
+                credencialRecuperada = new Credencial(correo,contrasenia,tipo);
             }
                 connectorDataBase.disconnect();
                 
@@ -70,6 +74,6 @@ public class CredencialDAO {
             Logger.getLogger(EncargadoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
        
-        return curp;
+        return credencialRecuperada;
     } 
 }

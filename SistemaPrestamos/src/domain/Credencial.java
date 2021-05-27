@@ -13,6 +13,11 @@ public class Credencial {
         this.contrasenia = contrasenia;
         this.tipo = tipo;
     }
+
+    public Credencial(String correo, Blob contraseniaBlob) {
+       this.correo = correo;
+       this.contrasenia = contrasenia;
+    }
     
     public void setCorreo(String correo){
         this.correo = correo;
