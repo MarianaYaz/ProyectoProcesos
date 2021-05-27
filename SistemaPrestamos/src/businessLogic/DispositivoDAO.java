@@ -14,12 +14,54 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author david
- */
+
 public class DispositivoDAO {
     
+    
+    public boolean actualizarEstado(String clave, String tipo, String estado){
+        boolean value=false;
+         try {   
+                ConnectorDB connectorDataBase=new ConnectorDB();
+                Connection connectionDataBase;
+                connectionDataBase = connectorDataBase.getConnection();
+                String insert="";
+            switch(tipo){ 
+                case "Cable": ;
+                    insert = "UPDATE Cable set estado=? where clave=?";   
+                break;
+
+                case "Conector":;
+                  insert = "UPDATE Conector set estado=? where clave=?";   
+
+                break;
+
+                case "Control de proyector":;
+                    insert = "UPDATE ControlProyector set estado=? where clave=?";   
+
+                break;
+
+                case "Laptop":;
+                    insert = "UPDATE Laptop set estado=? where clave=?";   
+
+                break;
+            
+         }           
+         PreparedStatement preparedStatement;
+         preparedStatement = connectionDataBase.prepareStatement(insert);               
+         preparedStatement.setString(1,estado);
+         preparedStatement.setString(2, clave);               
+         preparedStatement.executeUpdate();
+         connectorDataBase.disconnect();
+         value=true;
+        } catch (SQLException ex) {
+            Logger.getLogger(PrestamoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PrestamoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
+        return value;
+    
+    }
     
     public ArrayList<Cable> getCables(){
         ConnectorDB connectorDataBase=new ConnectorDB();
@@ -81,7 +123,7 @@ public class DispositivoDAO {
     
     public ArrayList<ControlProyector> getControlesProyectores(){
         ConnectorDB connectorDataBase=new ConnectorDB();
-        String sql = "SELECT * FROM Conector";
+        String sql = "SELECT * FROM ControlProyector";
         ArrayList<ControlProyector> controlesProyectores = new ArrayList<>();
         try {
             Connection connectionDataBase = connectorDataBase.getConnection();
@@ -111,7 +153,7 @@ public class DispositivoDAO {
     
     public ArrayList<Laptop> getLaptops(){
         ConnectorDB connectorDataBase=new ConnectorDB();
-        String sql = "SELECT * FROM Conector";
+        String sql = "SELECT * FROM Laptop";
         ArrayList<Laptop> laptops = new ArrayList<>();
         try {
             Connection connectionDataBase = connectorDataBase.getConnection();
