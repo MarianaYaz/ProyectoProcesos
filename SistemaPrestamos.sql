@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS Jefe(curp varchar(18) NOT NULL,
   
   
 CREATE TABLE IF NOT EXISTS Credenciales(
-  correoElectronico varchar(100) NOT NULL, contrasenia blob NOT NULL,
+  correoElectronico varchar(100) NOT NULL, contrasenia blob NOT NULL, tipo varchar(50) NOT NULL,
   primary key (correoElectronico));
   
 CREATE TABLE IF NOT EXISTS Prestamo (idPrestamo int NOT NULL auto_increment, idPrestamista varchar(10) not null,
@@ -96,3 +96,5 @@ VALUES ('FEI-CAB-156', 'Disponible','2020-05-17', 'Cable USB de tipo C color neg
 create user 'empleado'@'localhost' IDENTIFIED BY 'password1';
 
 GRANT SELECT,INSERT,DELETE,UPDATE ON prestamos.* TO 'empleado'@'localhost';
+
+

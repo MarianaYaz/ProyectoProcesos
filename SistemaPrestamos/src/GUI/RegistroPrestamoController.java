@@ -17,12 +17,6 @@ import javafx.scene.control.TextField;
  */
 public class RegistroPrestamoController implements Initializable {
 
-    private TextField tfCurp;
-    private TextField tfNombre;
-    private TextField tfNumeroPersonal;
-    private TextField tfTurno;
-    private TextField tfContrasenia;
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

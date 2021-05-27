@@ -1,7 +1,12 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package businessLogic;
 
 import dataAccess.ConnectorDB;
+import domain.Credencial;
 import domain.Encargado;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,9 +15,12 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class EncargadoDAO{
-
-    public boolean registrarEncargado(Encargado encargado) {
+/**
+ *
+ * @author Mariana
+ */
+public class CredencialDAO {
+       public boolean registrarCredencial(Credencial credencial) {
         boolean saveSuccess = false;
         try {  
             try { 
@@ -20,11 +28,10 @@ public class EncargadoDAO{
             Connection connectionDataBase;
             connectionDataBase = connectorDataBase.getConnection();   
             PreparedStatement insertStatment;
-            insertStatment = connectionDataBase.prepareStatement("INSERT INTO Encargado(curp,nombre,numPersonal,turno) VALUES(?,?,?,?) ");
-            insertStatment.setString(1, encargado.getCurp());
-            insertStatment.setString(2,  encargado.getNombre());
-            insertStatment.setString(3, encargado.getNumeroPersonal());
-            insertStatment.setString(4, encargado.getTurno());
+            insertStatment = connectionDataBase.prepareStatement("INSERT INTO Credenciales(correoElectronico,contrasenia,tipo) VALUES(?,?,?) ");
+            insertStatment.setString(1, credencial.getCorreo());
+            insertStatment.setBlob(2, credencial.getContrasenia());
+            insertStatment.setString(3, credencial.getTipo());
             
             insertStatment.executeUpdate();
             
@@ -42,18 +49,18 @@ public class EncargadoDAO{
         return saveSuccess;
     } 
     
-    public String buscarCurp(Encargado encargado) {
+   public String buscarCorreo(Credencial credencial) {
         String curp = "";
         try{
             ConnectorDB connectorDataBase=new ConnectorDB();
             Connection connectionDataBase = connectorDataBase.getConnection();
             ResultSet resultSet;
-            PreparedStatement preparedStatement = connectionDataBase.prepareStatement("SELECT curp from Encargado where curp=? ");
-            preparedStatement.setString(1, encargado.getCurp());          
+            PreparedStatement preparedStatement = connectionDataBase.prepareStatement("SELECT correoElectronico from Credenciales where correoElectronico=? ");
+            preparedStatement.setString(1, credencial.getCorreo());          
             
             resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-                curp = resultSet.getString("curp");
+                curp = resultSet.getString("correoElectronico");
             }
                 connectorDataBase.disconnect();
                 
