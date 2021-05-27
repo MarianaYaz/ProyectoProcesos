@@ -65,11 +65,14 @@ public class RegistroPrestamoController implements Initializable {
             String motivo=taMotivo.getText();
             String lugar=tfLugar.getText();
             String hora=tfHora.getText();
-            //String idPrestamista, String nombrePrestamista, String fecha, String motivo, String lugar, String hora
             Prestamo prestamo = new Prestamo(idPrestamista,nombrePrestamista,fecha,motivo,lugar,hora);
             if(!buscarRepetido(prestamo)){  
                 guardar(prestamo);
+            }else{  
+                enviarAlerta("El prestamo ya esta registrado");
             }
+        }else{  
+            enviarAlerta("Por favor llena todos los campos");
         }
     }
     
@@ -96,11 +99,20 @@ public class RegistroPrestamoController implements Initializable {
         alert.showAndWait();
     }
     
+    private void enviarAlerta(String message){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setHeaderText(null);
+        alert.setTitle("Warning");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    
     private boolean buscarRepetido(Prestamo prestamo){
         boolean value=true;
-        PrestamoDAO prestamoDAO = new PrestamoDAO();    
-        if(prestamoDAO.getId(prestamo) != 0 ){  
+        PrestamoDAO prestamoDAO = new PrestamoDAO();   
+        if(prestamoDAO.getId(prestamo) == 0 ){  
             value=false;
+            
         }
         return value;
     }
@@ -165,8 +177,7 @@ public class RegistroPrestamoController implements Initializable {
     private boolean validarCamposVacios(){  
         boolean value=false;
           if(tfIdPrestamista.getText().isEmpty() || tfNombrePrestamista.getText().isEmpty() 
-           || tfHora.getText().isEmpty()  || taMotivo.getText().isEmpty() || tfLugar.getText().isEmpty() 
-           || dpFecha.getValue()== null){
+           || tfHora.getText().isEmpty()  || taMotivo.getText().isEmpty() || tfLugar.getText().isEmpty() ){
               value=true;
           }
           return value;

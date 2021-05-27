@@ -1,7 +1,7 @@
 package sistemaprestamos;
 
 
-import GUI.DispositivoPrestarController;
+import GUI.MenuOpcionesController;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -23,12 +23,12 @@ public class SistemaPrestamos extends Application {
         
         try{
             
-            URL url = new File("src/GUI/DispositivoPrestar.fxml").toURI().toURL();
+            URL url = new File("src/GUI/MenuOpciones.fxml").toURI().toURL();
             try{
                 FXMLLoader loader = new FXMLLoader(url);
                 loader.setLocation(url);
                 loader.load();
-                DispositivoPrestarController dispositivoPrestarController =loader.getController();
+                MenuOpcionesController menuOpcionesController =loader.getController();
                 Parent root = loader.getRoot();
                 Scene scene = new Scene(root);
                 primaryStage.setScene(scene);
