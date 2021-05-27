@@ -27,21 +27,21 @@ public class DispositivoDAO {
                 String insert="";
             switch(tipo){ 
                 case "Cable": ;
-                    insert = "UPDATE Cable set estado=?, where clave=?";   
+                    insert = "UPDATE Cable set estado=? where clave=?";   
                 break;
 
                 case "Conector":;
-                  insert = "UPDATE Conector set estado=?, where clave=?";   
+                  insert = "UPDATE Conector set estado=? where clave=?";   
 
                 break;
 
                 case "Control de proyector":;
-                    insert = "UPDATE ControlProyector set estado=?, where clave=?";   
+                    insert = "UPDATE ControlProyector set estado=? where clave=?";   
 
                 break;
 
                 case "Laptop":;
-                    insert = "UPDATE Laptop set estado=?, where clave=?";   
+                    insert = "UPDATE Laptop set estado=? where clave=?";   
 
                 break;
             
@@ -153,7 +153,7 @@ public class DispositivoDAO {
     
     public ArrayList<Laptop> getLaptops(){
         ConnectorDB connectorDataBase=new ConnectorDB();
-        String sql = "SELECT * FROM Conector";
+        String sql = "SELECT * FROM Laptop";
         ArrayList<Laptop> laptops = new ArrayList<>();
         try {
             Connection connectionDataBase = connectorDataBase.getConnection();

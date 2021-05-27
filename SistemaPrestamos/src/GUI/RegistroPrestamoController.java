@@ -15,6 +15,7 @@ import domain.Laptop;
 import domain.Prestamo;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -94,29 +95,29 @@ public class RegistroPrestamoController implements Initializable {
         alert.setContentText("El prestamo ha sido guardado con exito");
         alert.showAndWait();
     }
+    
     private boolean buscarRepetido(Prestamo prestamo){
         boolean value=true;
         PrestamoDAO prestamoDAO = new PrestamoDAO();    
         if(prestamoDAO.getId(prestamo) != 0 ){  
             value=false;
         }
-        return false;
-    
+        return value;
     }
+    
     @FXML 
     private void actionSalir(ActionEvent actionEvent){   
         Stage stage = (Stage) btSalir.getScene().getWindow();
         stage.close();
     }
 
-    
-
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         dpFecha.setConverter(new LocalDateStringConverter(formatter, null));
+        dpFecha.setValue(LocalDate.now());
         dispositivos = FXCollections.observableArrayList();
+        
     }    
     
     
