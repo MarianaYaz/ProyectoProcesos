@@ -25,7 +25,26 @@ public class MenuOpcionesController implements Initializable {
     @FXML Button btSalir;
 
     @FXML  
-    private void registrarEncargado(ActionEvent actionEvent){}
+    private void registrarEncargado(ActionEvent actionEvent){
+        try{ 
+            Stage primaryStage= new Stage();
+            URL url = new File("src/GUI/RegistroEncargado.fxml").toURI().toURL();
+           try{
+              FXMLLoader loader = new FXMLLoader(url);
+              loader.setLocation(url);
+              loader.load();
+              RegistroEncargadoController RegistroEncargadoController =loader.getController();      
+              Parent root = loader.getRoot();
+              Scene scene = new Scene(root);
+              primaryStage.setScene(scene);       
+            } catch (IOException ex) {
+              Logger.getLogger(MenuOpcionesController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            primaryStage.show();
+       } catch (MalformedURLException ex) {
+           Logger.getLogger(MenuOpcionesController.class.getName()).log(Level.SEVERE, null, ex);
+       }       
+    }
     
      @FXML  
     private void registrarPrestamo(ActionEvent actionEvent){
@@ -54,7 +73,10 @@ public class MenuOpcionesController implements Initializable {
     private void registrarDevolucion(ActionEvent actionEvent){}
     
      @FXML  
-    private void salir(ActionEvent actionEvent){}
+    private void salir(ActionEvent actionEvent){
+        Stage stage = (Stage) btSalir.getScene().getWindow();
+        stage.close();
+    }
   
     @Override
     public void initialize(URL url, ResourceBundle rb) {

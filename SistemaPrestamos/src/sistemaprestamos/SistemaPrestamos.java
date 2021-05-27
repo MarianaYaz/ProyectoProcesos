@@ -1,6 +1,7 @@
 package sistemaprestamos;
 
 
+import GUI.MenuOpcionesController;
 import GUI.RegistroEncargadoController;
 import GUI.RegistroPrestamoController;
 import java.io.File;
@@ -25,12 +26,12 @@ public class SistemaPrestamos extends Application {
         
         try{
             
-            URL url = new File("src/GUI/RegistroEncargado.fxml").toURI().toURL();
+            URL url = new File("src/GUI/MenuOpciones.fxml").toURI().toURL();
             try{
                 FXMLLoader loader = new FXMLLoader(url);
                 loader.setLocation(url);
                 loader.load();
-                RegistroEncargadoController registroEncargado =loader.getController();
+                MenuOpcionesController menuOpciones =loader.getController();
                 Parent root = loader.getRoot();
                 Scene scene = new Scene(root);
                 primaryStage.setScene(scene);
