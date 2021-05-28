@@ -101,3 +101,11 @@ alter table devolucion drop column presentaProblema;
 create user 'empleado'@'localhost' IDENTIFIED BY 'password1';
 
 GRANT SELECT,INSERT,DELETE,UPDATE ON prestamos.* TO 'empleado'@'localhost';
+INSERT INTO prestamo (idPrestamista, nombrePrestamista, fechaPrestamo,motivo,horaprestamo,lugarprestamo) 
+VALUES ('S19014045','David Alexander Mijangos Paredes', '2020-05-27', 'clase de diseño de software', '13:30', 'CC2');
+UPDATE Laptop SET estado = 'Prestado' WHERE clave = 'FEI-LAP-102';
+INSERT INTO PrestamoLaptop(idPrestamo, claveDispositivo) VALUES ('1','FEI-LAP-102');
+SELECT * FROM prestamoLaptop;
+select * from prestamo;
+select * from laptop;
+select * from devolucion;

@@ -5,6 +5,8 @@
  */
 package sistemaprestamos;
 
+import GUI.DispositivoDevolverController;
+import GUI.DispositivoPrestarController;
 import GUI.RegistroDevolucionController;
 import java.io.File;
 import java.io.IOException;
@@ -33,12 +35,12 @@ public class SistemaPrestamos extends Application {
         
         try{
             
-            URL url = new File("src/GUI/RegistroDevolucion.fxml").toURI().toURL();
+            URL url = new File("src/GUI/DispositivoDevolver.fxml").toURI().toURL();
             try{
                 FXMLLoader loader = new FXMLLoader(url);
                 loader.setLocation(url);
                 loader.load();
-                RegistroDevolucionController registroDevolucionController =loader.getController();
+                DispositivoDevolverController dispositivoDevolverController =loader.getController();
                 Parent root = loader.getRoot();
                 Scene scene = new Scene(root);
                 primaryStage.setScene(scene);
