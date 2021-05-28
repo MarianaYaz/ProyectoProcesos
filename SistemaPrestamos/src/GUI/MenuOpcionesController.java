@@ -82,6 +82,7 @@ public class MenuOpcionesController implements Initializable {
     public void inicializarTipo(String tipo){
         this.tipo = tipo;
         if(tipo.equals("Encargado")){
+             btRegistrarEncargado.setOpacity(0);
              btRegistrarEncargado.setDisable(true);
         }
     }
