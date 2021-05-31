@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="700.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.RegistroDevolucionController">
+    <stylesheets>
+        <URL value="@registrodevolucion.css" />
+    </stylesheets>
+   <children>
+      <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0">
+         <children>
+            <Label layoutX="16.0" layoutY="43.0" text="Devolución">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="152.0" text="Fecha devolución:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="221.0" text="¿Presenta problema?">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="12.0" layoutY="263.0" text="Comentarios:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label layoutX="14.0" layoutY="89.0" text="Dispositivo:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cbDispositivos" layoutX="84.0" layoutY="85.0" prefWidth="150.0" promptText="Seleccione..." />
+            <DatePicker fx:id="dpFechaDevolucion" layoutX="139.0" layoutY="148.0" />
+            <ComboBox fx:id="cbPresentaProblema" layoutX="139.0" layoutY="217.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextArea fx:id="textAreaComentarios" layoutX="139.0" layoutY="263.0" prefHeight="78.0" prefWidth="458.0" />
+            <Button layoutX="448.0" layoutY="361.0" mnemonicParsing="false" onAction="#guardarDevolucion" prefHeight="25.0" prefWidth="101.0" text="Guardar" />
+            <Button fx:id="btCancelar" layoutX="570.0" layoutY="361.0" mnemonicParsing="false" onAction="#cancelarDevolucion" prefHeight="25.0" prefWidth="101.0" text="Cancelar" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#212122" height="36.0" layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="700.0" />
+            <Label layoutX="14.0" layoutY="185.0" text="Hora devolución:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfHoraDevolucion" layoutX="139.0" layoutY="181.0" prefHeight="25.0" prefWidth="90.0" />
+            <Label layoutX="429.0" layoutY="61.0" text="Datos préstamo">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="366.0" layoutY="89.0" text="Nombre prestamista:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label layoutX="366.0" layoutY="117.0" text="Fecha préstamo:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="366.0" layoutY="144.0" text="Hora préstamo:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label layoutX="366.0" layoutY="173.0" text="Motivo:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="lbNombrePrestamista" layoutX="481.0" layoutY="89.0" />
+            <Label fx:id="lbFechaPrestamo" layoutX="481.0" layoutY="117.0" />
+            <Label fx:id="lbHoraPrestamo" layoutX="477.0" layoutY="144.0" />
+            <Label fx:id="lbMotivo" layoutX="422.0" layoutY="173.0" />
+            <Label layoutX="366.0" layoutY="198.0" text="Lugar:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="lbLugar" layoutX="412.0" layoutY="198.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

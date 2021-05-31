@@ -199,4 +199,70 @@ public class PrestamoDAO {
             }
             return prestamos;
         }
+    
+    public int getIdPrestamoPorClaveDispositivo(String clave, String option){
+        int idPrestamo = 0;
+        try{
+            ConnectorDB connectorDataBase=new ConnectorDB();
+            Connection connectionDataBase;
+            connectionDataBase = connectorDataBase.getConnection();
+            String sql = "";
+            switch(option){ 
+                case "Cable": ;
+                    sql = "SELECT idPrestamo FROM PrestamoCable WHERE claveDispositivo = ?";
+                break;
+
+                case "Conector":;
+                    sql = "SELECT idPrestamo FROM PrestamoConector WHERE claveDispositivo = ?"; 
+                break;
+
+                case "Control de proyector":;
+                   sql = "SELECT idPrestamo FROM PrestamoControlProyector WHERE claveDispositivo = ?";
+                break;
+
+                case "Laptop":;
+                   sql = "SELECT idPrestamo FROM PrestamoLaptop WHERE claveDispositivo = ?";
+                break;
+            }
+            PreparedStatement preparedStatement;
+            preparedStatement = connectionDataBase.prepareStatement(sql);
+            preparedStatement.setString(1, clave);
+            ResultSet resultSet;
+            resultSet = preparedStatement.executeQuery();          
+            while(resultSet.next()){
+                idPrestamo = resultSet.getInt("idPrestamo");
+            }
+        }catch(SQLException | ClassNotFoundException sqlException){
+            Logger.getLogger(PrestamoDAO.class.getName()).log(Level.SEVERE, null, sqlException);
+        }
+        return idPrestamo;
+    }
+    
+    public Prestamo getPrestamoPorId(int idPrestamo){
+        Prestamo prestamo = null;
+        try{
+            ConnectorDB connectorDataBase = new ConnectorDB();
+            Connection connectionDataBase = connectorDataBase.getConnection();
+            String query="SELECT * FROM Prestamo WHERE idPrestamo = ?";
+
+               PreparedStatement preparedStatement;
+               preparedStatement = connectionDataBase.prepareStatement(query);
+               preparedStatement.setInt(1, idPrestamo);
+               ResultSet resultSet;
+               resultSet = preparedStatement.executeQuery();            
+               while(resultSet.next()){
+                    String idPrestamista = resultSet.getString("idPrestamista");
+                    String nombrePrestamista = resultSet.getString("nombrePrestamista");
+                    String fechaPrestamo= resultSet.getString("fechaPrestamo");
+                    String motivo= resultSet.getString("motivo");
+                    String horaPrestamo=resultSet.getString("horaPrestamo");
+                    String lugarPrestamo = resultSet.getString("lugarPrestamo");
+                    prestamo = new Prestamo(idPrestamista,nombrePrestamista, fechaPrestamo, motivo,lugarPrestamo, horaPrestamo);
+                }
+                connectorDataBase.disconnect();
+        }catch(SQLException | ClassNotFoundException sqlException) {
+            Logger.getLogger(PrestamoDAO.class.getName()).log(Level.SEVERE, null, sqlException);
+        }
+        return prestamo;
+    }
 }
