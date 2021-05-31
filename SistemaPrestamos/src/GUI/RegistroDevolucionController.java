@@ -118,11 +118,11 @@ public class RegistroDevolucionController implements Initializable {
             PrestamoDAO prestamoDAO = new PrestamoDAO();
             idPrestamo = prestamoDAO.getIdPrestamoPorClaveDispositivo(dispositivo.getClave(), opcionDispositivo);
             Prestamo prestamo = prestamoDAO.getPrestamoPorId(idPrestamo);
-            lbNombrePrestamista.setText(prestamo.getNombrePrestamista());
-            lbFechaPrestamo.setText(prestamo.getFecha());
-            lbHoraPrestamo.setText(prestamo.getHora());
+            lbNombrePrestamista.setText(" "+ prestamo.getNombrePrestamista());
+            lbFechaPrestamo.setText(" "+prestamo.getFecha());
+            lbHoraPrestamo.setText(" "+prestamo.getHora());
             lbMotivo.setText(prestamo.getMotivo());
-            lbLugar.setText(prestamo.getLugar());
+            lbLugar.setText(" "+prestamo.getLugar());
         });
     }
  
