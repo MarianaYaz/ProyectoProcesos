@@ -71,7 +71,27 @@ public class MenuOpcionesController implements Initializable {
     }
     
      @FXML  
-    private void registrarDevolucion(ActionEvent actionEvent){}
+    private void registrarDevolucion(ActionEvent actionEvent){
+         try{ 
+            Stage primaryStage= new Stage();
+            URL url = new File("src/GUI/DispositivoDevolver.fxml").toURI().toURL();
+           try{
+              FXMLLoader loader = new FXMLLoader(url);
+              loader.setLocation(url);
+              loader.load();
+              DispositivoDevolverController dispositivoDevolverController =loader.getController();      
+              Parent root = loader.getRoot();
+              Scene scene = new Scene(root);
+              primaryStage.setScene(scene);       
+            } catch (IOException ex) {
+              Logger.getLogger(MenuOpcionesController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            primaryStage.show();
+       } catch (MalformedURLException ex) {
+           Logger.getLogger(MenuOpcionesController.class.getName()).log(Level.SEVERE, null, ex);
+       }
+    
+    }
     
      @FXML  
     private void salir(ActionEvent actionEvent){
