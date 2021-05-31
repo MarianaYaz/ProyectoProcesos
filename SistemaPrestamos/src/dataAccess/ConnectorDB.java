@@ -27,8 +27,8 @@ public class ConnectorDB {
 
             }
             url = properties.getProperty("url");
-            userName = properties.getProperty("userName");
-            userPassword = properties.getProperty("userPassword");
+            userName = properties.getProperty("user");
+            userPassword = properties.getProperty("password");
         }
 
         public void connect() throws ClassNotFoundException {
