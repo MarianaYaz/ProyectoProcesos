@@ -5,16 +5,16 @@ import java.sql.Blob;
 
 public class Credencial {
     private String correo;
-    private Blob contrasenia;
+    private String contrasenia;
     private String tipo;
     
-    public Credencial(String correo, Blob contrasenia, String tipo){
+    public Credencial(String correo, String contrasenia, String tipo){
         this.correo = correo;
         this.contrasenia = contrasenia;
         this.tipo = tipo;
     }
 
-    public Credencial(String correo, Blob contraseniaBlob) {
+    public Credencial(String correo, String contrasenia) {
        this.correo = correo;
        this.contrasenia = contrasenia;
     }
@@ -27,11 +27,11 @@ public class Credencial {
         return correo;
     }
     
-    public void setContrasenia(Blob contrasenia){
+    public void setContrasenia(String contrasenia){
         this.contrasenia = contrasenia;
     }
     
-    public Blob getContrasenia(){
+    public String getContrasenia(){
         return contrasenia;
     }
     

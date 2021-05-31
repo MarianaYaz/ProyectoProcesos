@@ -50,9 +50,7 @@ public class InicioSesionController implements Initializable {
        correo = tfCorreo.getText();
        contrasenia = pfContrasenia.getText();
        correo = tfCorreo.getText();
-       Validacion validacion = new Validacion();
-       contraseniaBlob = validacion.convertirContrasenia(contrasenia);
-       Credencial credencial = new Credencial(correo,contraseniaBlob);
+       Credencial credencial = new Credencial(correo,contrasenia);
        CredencialDAO credencialDAO = new CredencialDAO();
        Credencial credencialRecuperada = credencialDAO.buscarCredencial(credencial);
        if(verificarCredenciales(credencialRecuperada,credencial)){
@@ -73,6 +71,9 @@ public class InicioSesionController implements Initializable {
             }catch (IOException ex) {
             Logger.getLogger(InicioSesionController.class.getName()).log(Level.SEVERE, null, ex);
             }
+       }else{
+           MensajeAlerta mensajeAlerta = new MensajeAlerta();
+           mensajeAlerta.mostrarMensajeCamposInvalidos("Credenciales incorrectas");
        }
     }
     
@@ -82,9 +83,10 @@ public class InicioSesionController implements Initializable {
              value = false;
          }else
          if(!credencialRecuperada.getContrasenia().equals(credencial.getContrasenia())
-                 &&!credencialRecuperada.getCorreo().equals(credencial.getCorreo())){
+                 ||!credencialRecuperada.getCorreo().equals(credencial.getCorreo())){
              value = false;
-         }     
+         }   
+ 
          return value;
      }  
     
