@@ -46,7 +46,6 @@ public class RegistroEncargadoController implements Initializable {
        String contrasenia = "";
        String turno = "";
        String tipo = "Encargado";
-       Blob contraseniaBlob = null;
        curp = tfCurp.getText();
        nombre = tfNombre.getText();
        numPersonal = tfNumeroPersonal.getText();
@@ -55,9 +54,7 @@ public class RegistroEncargadoController implements Initializable {
        turno = cbTurnos.getSelectionModel().getSelectedItem();
        correo = tfCorreo.getText();
        contrasenia = tfContrasenia.getText();
-       Validacion validacion = new Validacion();
-       contraseniaBlob = validacion.convertirContrasenia(contrasenia);
-       Credencial credencial = new Credencial(correo,contraseniaBlob, tipo);
+       Credencial credencial = new Credencial(correo,contrasenia, tipo);
        Encargado encargado = new Encargado(curp,nombre,numPersonal,turno);
        if(validar(encargado)&&validar(credencial)){
             CredencialDAO credencialDAO = new CredencialDAO();

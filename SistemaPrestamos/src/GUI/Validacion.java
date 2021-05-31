@@ -18,21 +18,4 @@ public class Validacion {
         return mather.find();
     }
      
-    public Blob convertirContrasenia(String contrasenia){
-         Blob blobData = null;
-         try {
-             ConnectorDB db = new ConnectorDB();
-             Connection dbConnection = db.getConnection();
-             byte[] byteData = contrasenia.getBytes("UTF-8");
-             blobData = dbConnection.createBlob();
-             blobData.setBytes(1, byteData);
-         } catch (SQLException ex) {
-             Logger.getLogger(Validacion.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (UnsupportedEncodingException ex) {
-             Logger.getLogger(Validacion.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (ClassNotFoundException ex) {
-             Logger.getLogger(Validacion.class.getName()).log(Level.SEVERE, null, ex);
-         }
-    return blobData;
-  }
 }   
