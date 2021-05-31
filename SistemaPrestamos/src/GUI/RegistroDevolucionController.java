@@ -187,7 +187,7 @@ public class RegistroDevolucionController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText(null);
         alert.setTitle("Información guardada");
-        alert.setContentText("El prestamo ha sido guardado con exito");
+        alert.setContentText("La devolución ha sido guardado con exito");
         alert.showAndWait();
     }
  
