@@ -15,9 +15,9 @@ CREATE TABLE IF NOT EXISTS Jefe(curp varchar(18) NOT NULL,
   
   
 CREATE TABLE IF NOT EXISTS Credenciales(
-  correoElectronico varchar(100) NOT NULL, contrasenia blob NOT NULL,
-  primary key (correoElectronico));
-  
+correoElectronico varchar(100) NOT NULL, contrasenia varchar(255) NOT NULL, tipo varchar(50) NOT NULL,
+primary key (correoElectronico));
+
 CREATE TABLE IF NOT EXISTS Prestamo (idPrestamo int NOT NULL auto_increment, idPrestamista varchar(12) not null,
  nombrePrestamista varchar(80) not null, fechaPrestamo varchar(15) not null, motivo varchar( 100) not null, horaPrestamo varchar(5) not null,
  lugarPrestamo varchar(50), primary key (idPrestamo));
@@ -96,7 +96,9 @@ CREATE TABLE IF NOT EXISTS PrestamoCable(idPrestamo int , claveDispositivo varch
 CREATE TABLE IF NOT EXISTS PrestamoLaptop(idPrestamo int , claveDispositivo varchar(12) , foreign key (idPrestamo) REFERENCES Prestamo(idPrestamo), foreign key (claveDispositivo) REFERENCES Laptop(clave));
 CREATE TABLE IF NOT EXISTS PrestamoControlProyector(idPrestamo int , claveDispositivo varchar(12) , foreign key (idPrestamo) REFERENCES Prestamo(idPrestamo), foreign key (claveDispositivo) REFERENCES ControlProyector(clave));
 
-alter table devolucion drop column presentaProblema;    
+alter table devolucion drop column presentaProblema;   
+
+INSERT INTO Credenciales(correoElectronico,contrasenia,tipo) VALUES("mari@hotmail.com",hex(AES_ENCRYPT("12345",'key')),"Jefe"); 
 
 create user 'empleado'@'localhost' IDENTIFIED BY 'password1';
 
