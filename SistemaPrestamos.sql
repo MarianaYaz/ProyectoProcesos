@@ -12,27 +12,20 @@ CREATE TABLE IF NOT EXISTS Jefe(curp varchar(18) NOT NULL,
   nombre varchar(200) NOT NULL, 
   numPersonal varchar(20) NOT NULL, 
   primary key (curp));
-  
-  
+
 CREATE TABLE IF NOT EXISTS Credenciales(
 correoElectronico varchar(100) NOT NULL, contrasenia varchar(255) NOT NULL, tipo varchar(50) NOT NULL,
 primary key (correoElectronico));
 
+  
 CREATE TABLE IF NOT EXISTS Prestamo (idPrestamo int NOT NULL auto_increment, idPrestamista varchar(12) not null,
  nombrePrestamista varchar(80) not null, fechaPrestamo varchar(15) not null, motivo varchar( 100) not null, horaPrestamo varchar(5) not null,
  lugarPrestamo varchar(50), primary key (idPrestamo));
   
    CREATE TABLE IF NOT EXISTS Devolucion (idDevolucion int NOT NULL auto_increment, horaDevolucion varchar(5) not null, fechaDevolucion varchar(15) not null,
-                                        comentario varchar(100) not null, presentaProblema varchar(2) not null, idPrestamo int NOT NULL,
+                                        comentario varchar(100) not null, idPrestamo int NOT NULL,
                                         PRIMARY KEY (idDevolucion), foreign key (idPrestamo) REFERENCES Prestamo(idPrestamo));
-               
 
- 
-                                                   
-                                                   
-
-                                                     
- 
 CREATE TABLE IF NOT EXISTS ControlProyector (clave varchar(12) not null, estado varchar(15) not null, 
                                              fechaRegistro varchar(15) not null, descripcion varchar(50) not null,
                                              marca varchar(15) not null, salaAsignada varchar(10) not null,
@@ -95,19 +88,17 @@ CREATE TABLE IF NOT EXISTS PrestamoConector(idPrestamo int , claveDispositivo va
 CREATE TABLE IF NOT EXISTS PrestamoCable(idPrestamo int , claveDispositivo varchar(12) , foreign key (idPrestamo) REFERENCES Prestamo(idPrestamo), foreign key (claveDispositivo) REFERENCES Cable(clave));
 CREATE TABLE IF NOT EXISTS PrestamoLaptop(idPrestamo int , claveDispositivo varchar(12) , foreign key (idPrestamo) REFERENCES Prestamo(idPrestamo), foreign key (claveDispositivo) REFERENCES Laptop(clave));
 CREATE TABLE IF NOT EXISTS PrestamoControlProyector(idPrestamo int , claveDispositivo varchar(12) , foreign key (idPrestamo) REFERENCES Prestamo(idPrestamo), foreign key (claveDispositivo) REFERENCES ControlProyector(clave));
+CREATE TABLE IF NOT EXISTS RegistroPrestamo(idPrestamo int, correoElectronico varchar(100), foreign key(idPrestamo) REFERENCES Prestamo(idPrestamo), foreign key (correoElectronico) REFERENCES Credenciales (correoElectronico));
 
-alter table devolucion drop column presentaProblema;   
+/*create user 'empleado'@'localhost' IDENTIFIED BY 'password1';
 
-INSERT INTO Credenciales(correoElectronico,contrasenia,tipo) VALUES("mari@hotmail.com",hex(AES_ENCRYPT("12345",'key')),"Jefe"); 
-
-create user 'empleado'@'localhost' IDENTIFIED BY 'password1';
-
-GRANT SELECT,INSERT,DELETE,UPDATE ON prestamos.* TO 'empleado'@'localhost';
+GRANT SELECT,INSERT,DELETE,UPDATE ON prestamos.* TO 'empleado'@'localhost';*/
 INSERT INTO prestamo (idPrestamista, nombrePrestamista, fechaPrestamo,motivo,horaprestamo,lugarprestamo) 
 VALUES ('S19014045','David Alexander Mijangos Paredes', '2020-05-27', 'clase de diseño de software', '13:30', 'CC2');
 UPDATE Laptop SET estado = 'Prestado' WHERE clave = 'FEI-LAP-102';
 INSERT INTO PrestamoLaptop(idPrestamo, claveDispositivo) VALUES ('1','FEI-LAP-102');
-SELECT * FROM prestamoLaptop;
+INSERT INTO Credenciales(correoElectronico,contrasenia,tipo) VALUES("mari@hotmail.com",hex(AES_ENCRYPT("12345",'key')),"Jefe");
+/*SELECT * FROM prestamoLaptop;
 select * from prestamo;
 select * from laptop;
-select * from devolucion;
+select * from devolucion;*/
