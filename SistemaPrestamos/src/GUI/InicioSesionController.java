@@ -62,6 +62,7 @@ public class InicioSesionController implements Initializable {
             loader.load();
             MenuOpcionesController menuPrincipal = loader.getController();
             menuPrincipal.inicializarTipo(credencialRecuperada.getTipo());
+            menuPrincipal.setCorreo(correo);
             Parent root = loader.getRoot();
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);

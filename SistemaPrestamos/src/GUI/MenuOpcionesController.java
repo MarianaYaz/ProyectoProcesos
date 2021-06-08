@@ -24,7 +24,10 @@ public class MenuOpcionesController implements Initializable {
     @FXML Button btRegistrarDevolucion;
     @FXML Button btSalir;
     String tipo;
-
+    String correoElectronico;
+    
+    
+    
     @FXML  
     private void registrarEncargado(ActionEvent actionEvent){
         try{ 
@@ -56,7 +59,8 @@ public class MenuOpcionesController implements Initializable {
               FXMLLoader loader = new FXMLLoader(url);
               loader.setLocation(url);
               loader.load();
-              DispositivoPrestarController dispositivoPrestarController =loader.getController();      
+              DispositivoPrestarController dispositivoPrestarController =loader.getController();   
+              dispositivoPrestarController.correo= correoElectronico;
               Parent root = loader.getRoot();
               Scene scene = new Scene(root);
               primaryStage.setScene(scene);       
@@ -105,6 +109,10 @@ public class MenuOpcionesController implements Initializable {
              btRegistrarEncargado.setOpacity(0);
              btRegistrarEncargado.setDisable(true);
         }
+    }
+    
+    public void setCorreo(String correo){
+        correoElectronico= correo;
     }
     
     @Override

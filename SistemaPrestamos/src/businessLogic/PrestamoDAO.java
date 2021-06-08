@@ -265,4 +265,27 @@ public class PrestamoDAO {
         }
         return prestamo;
     }
+    
+    public boolean agregarEncargadoPrestamo(int idPrestamo, String correoElectronico){   
+            boolean value=false;
+         try {   
+                ConnectorDB connectorDataBase=new ConnectorDB();
+                Connection connectionDataBase;
+                connectionDataBase = connectorDataBase.getConnection();        
+                String insert = "INSERT INTO RegistroPrestamo(idPrestamo,correoElectronico) VALUES (?,?)";           
+                PreparedStatement preparedStatement;       
+                preparedStatement = connectionDataBase.prepareStatement(insert);                
+                preparedStatement.setInt(1,idPrestamo);
+                preparedStatement.setString(2,correoElectronico);                              
+                preparedStatement.executeUpdate();
+                connectorDataBase.disconnect();
+                value=true;
+        } catch (SQLException ex) {
+            Logger.getLogger(PrestamoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PrestamoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
+        return value;
+    }
 }

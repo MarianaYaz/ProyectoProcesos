@@ -14,6 +14,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -47,24 +49,27 @@ public class RegistroPrestamoController implements Initializable {
     @FXML Button btGuardar;
     @FXML Button btSalir;
     private String opcionDispositivo;
+    private String correo;
     
     
      @FXML 
     private void actionGuardar(ActionEvent actionEvent){   
         if(!validarCamposVacios()){
-            int idPrestamo;
-            String idPrestamista=tfIdPrestamista.getText();
-            String nombrePrestamista=tfNombrePrestamista.getText();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            String fecha=dpFecha.getValue().format(formatter);
-            String motivo=taMotivo.getText();
-            String lugar=tfLugar.getText();
-            String hora=tfHora.getText();
-            Prestamo prestamo = new Prestamo(idPrestamista,nombrePrestamista,fecha,motivo,lugar,hora);
-            if(!buscarRepetido(prestamo)){  
-                guardar(prestamo);
-            }else{  
-                enviarAlerta("El prestamo ya esta registrado");
+            if(validarInformacion()){
+                int idPrestamo;
+                String idPrestamista=tfIdPrestamista.getText();
+                String nombrePrestamista=tfNombrePrestamista.getText();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                String fecha=dpFecha.getValue().format(formatter);
+                String motivo=taMotivo.getText();
+                String lugar=tfLugar.getText();
+                String hora=tfHora.getText();
+                Prestamo prestamo = new Prestamo(idPrestamista,nombrePrestamista,fecha,motivo,lugar,hora);          
+                if(!buscarRepetido(prestamo)){  
+                    guardar(prestamo);
+                }else{  
+                    enviarAlerta("El prestamo ya esta registrado");
+                }
             }
         }else{  
             enviarAlerta("Por favor llena todos los campos");
@@ -79,7 +84,8 @@ public class RegistroPrestamoController implements Initializable {
             prestamo.setDispositivo(dispositivo);
             DispositivoDAO dispositivoDAO = new DispositivoDAO();
             if(prestamoDAO.guardadoDispositivo(prestamo, opcionDispositivo) 
-            && dispositivoDAO.actualizarEstado(dispositivo.getClave(), opcionDispositivo, "Prestado") ){
+            && dispositivoDAO.actualizarEstado(dispositivo.getClave(), opcionDispositivo, "Prestado") 
+            && prestamoDAO.agregarEncargadoPrestamo(prestamo.getIdPrestamo(), correo)){
                 enviarAlertaGuardado();
             }
         }
@@ -178,6 +184,47 @@ public class RegistroPrestamoController implements Initializable {
           return value;
     
     }
+    
+    private boolean validarInformacion(){  
+        boolean value=true;
+        if( findInvalidField(tfIdPrestamista.getText())) {   
+            enviarAlerta("Id Prestamo tiene caracteres inválidos ");
+            value=false;
+        }
+           
+        if(findInvalidField(tfNombrePrestamista.getText())){
+            enviarAlerta("Nombre de prestamista tiene caracteres inválidos ");
+            value=false;
+        }
+        
+        if(findInvalidField(taMotivo.getText())){
+            enviarAlerta("Motivo tiene caracteres inválidos ");
+            value= false;
+
+        }
+        
+        if(findInvalidField(tfLugar.getText())){
+            enviarAlerta("Lugar tiene caracteres inválidos ");
+            value= false;       
+        }
+           
+        return value;
+    }
+    
+    private boolean findInvalidField(String field){ 
+        boolean value=false;
+        Pattern pattern = Pattern.compile("[!#$%&'*+/=?^_`{|}~]");
+        Matcher mather = pattern.matcher(field);
+        if(mather.find()){  
+            value=true;
+        }   
+        return value;  
+    }
+    
+    public void setCorreo(String correo){  
+        this.correo=correo;
+    }
+    
     
     
 }

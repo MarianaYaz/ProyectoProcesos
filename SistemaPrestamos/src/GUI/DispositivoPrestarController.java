@@ -31,6 +31,7 @@ public class DispositivoPrestarController implements Initializable {
     @FXML Button btOk;
     @FXML Button btCancelar;
     @FXML ComboBox cbDispositivos;
+    String correo;
     
     
     @FXML 
@@ -44,6 +45,7 @@ public class DispositivoPrestarController implements Initializable {
                loader = new FXMLLoader(getClass().getResource("RegistroPrestamo.fxml"));
                Parent root = loader.load();
                RegistroPrestamoController registroPrestamoController = loader.getController();
+               registroPrestamoController.setCorreo(correo);
                registroPrestamoController.initializeDispositivos(opcion);
                Scene scene = new Scene(root);
                Stage stage = new Stage();
