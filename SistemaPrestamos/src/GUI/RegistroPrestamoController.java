@@ -64,11 +64,16 @@ public class RegistroPrestamoController implements Initializable {
                 String motivo=taMotivo.getText();
                 String lugar=tfLugar.getText();
                 String hora=tfHora.getText();
-                Prestamo prestamo = new Prestamo(idPrestamista,nombrePrestamista,fecha,motivo,lugar,hora);          
-                if(!buscarRepetido(prestamo)){  
-                    guardar(prestamo);
+                if(validarHora(hora)){
+                    Prestamo prestamo = new Prestamo(idPrestamista,nombrePrestamista,fecha,motivo,lugar,hora);          
+                    if(!buscarRepetido(prestamo)){  
+                        guardar(prestamo);
+                    }else{  
+                        enviarAlerta("El prestamo ya esta registrado");
+                    }
                 }else{  
-                    enviarAlerta("El prestamo ya esta registrado");
+                  enviarAlerta("El formato de hora debe ser HH:MM");
+
                 }
             }
         }else{  
@@ -207,8 +212,21 @@ public class RegistroPrestamoController implements Initializable {
             enviarAlerta("Lugar tiene caracteres inválidos ");
             value= false;       
         }
+        
+        
            
         return value;
+    }
+    
+    private boolean validarHora(String hora){ 
+        boolean value=false;
+        Pattern pattern = Pattern.compile("[0-2][0-3]:[0-5][0-9]");
+        Matcher mather = pattern.matcher(hora);
+        if(mather.find()){  
+            value=true;
+        }   
+        return value; 
+        
     }
     
     private boolean findInvalidField(String field){ 
