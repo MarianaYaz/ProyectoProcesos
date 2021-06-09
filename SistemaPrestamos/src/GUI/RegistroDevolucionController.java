@@ -16,6 +16,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -84,24 +86,28 @@ public class RegistroDevolucionController implements Initializable {
     @FXML
     private void guardarDevolucion(ActionEvent event){
         if(!validarCamposVacios()){
-            String comentarios = textAreaComentarios.getText();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            String fechaDevolucion = dpFechaDevolucion.getValue().format(formatter);
-            String horaDevolucion = tfHoraDevolucion.getText();
-            Devolucion devolucion = new Devolucion(comentarios, fechaDevolucion, horaDevolucion);
-            DevolucionDAO devolucionDAO = new DevolucionDAO();
-            DispositivoDAO dispositivoDAO = new DispositivoDAO();
-            if(cbPresentaProblema.getSelectionModel().getSelectedItem().equals("NO")){ 
-                if (devolucionDAO.guardadoDevolucion(devolucion, idPrestamo) && dispositivoDAO.actualizarEstado(dispositivo.getClave(), opcionDispositivo, "Disponible")) {
-                    enviarAlertaGuardado();
-                    cancelarDevolucion(event);
-                }
-            }else{
-                if (devolucionDAO.guardadoDevolucion(devolucion, idPrestamo) && dispositivoDAO.actualizarEstado(dispositivo.getClave(), opcionDispositivo, "Mantenimiento")) {
-                    enviarAlertaGuardado();
-                    cancelarDevolucion(event);
+            if(validarInformacion()){
+                String comentarios = textAreaComentarios.getText();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                String fechaDevolucion = dpFechaDevolucion.getValue().format(formatter);
+                String horaDevolucion = tfHoraDevolucion.getText();
+                Devolucion devolucion = new Devolucion(comentarios, fechaDevolucion, horaDevolucion);
+                DevolucionDAO devolucionDAO = new DevolucionDAO();
+                DispositivoDAO dispositivoDAO = new DispositivoDAO();
+                if (cbPresentaProblema.getSelectionModel().getSelectedItem().equals("NO")) {
+                    if (devolucionDAO.guardadoDevolucion(devolucion, idPrestamo) && dispositivoDAO.actualizarEstado(dispositivo.getClave(), opcionDispositivo, "Disponible")) {
+                        enviarAlertaGuardado();
+                        cancelarDevolucion(event);
+                    }
+                } else {
+                    if (devolucionDAO.guardadoDevolucion(devolucion, idPrestamo) && dispositivoDAO.actualizarEstado(dispositivo.getClave(), opcionDispositivo, "Mantenimiento")) {
+                        enviarAlertaGuardado();
+                        cancelarDevolucion(event);
+                    }
                 }
             }
+        }else{
+            enviarAlerta("Por favor llena los campos");
         }
     }
     
@@ -175,12 +181,58 @@ public class RegistroDevolucionController implements Initializable {
           return value;
     }
     
+    private boolean validarInformacion(){
+        boolean value = true;
+        if(findInvalidField(textAreaComentarios.getText())){
+            enviarAlerta("Comentarios tiene caracteres inválidos ");
+            value=false;
+        }
+        
+        if(findMissingSelection(cbDispositivos)){
+            enviarAlerta("Falta seleccionar el dispositivo a devolver");
+            value = false;
+        }
+        
+        if(findMissingSelection(cbPresentaProblema)){
+            enviarAlerta("Falta seleccionar si el dispositivo presenta o no problema");
+            value = false;
+        }
+        
+        return value;
+    }
+    
+    private boolean findInvalidField(String field){ 
+        boolean value=false;
+        Pattern pattern = Pattern.compile("[!#$%&'*+/=?^_`{|}~]");
+        Matcher mather = pattern.matcher(field);
+        if(mather.find()){  
+            value=true;
+        }   
+        return value;  
+    }
+    
+    private boolean findMissingSelection(ComboBox cbToValidate){
+        boolean value = false;
+        if(cbToValidate.getSelectionModel().getSelectedIndex() < 0){
+            value = true;
+        }
+        return value;
+    }
+    
     
     private void enviarAlertaGuardado(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText(null);
         alert.setTitle("Información guardada");
         alert.setContentText("La devolución ha sido guardado con exito");
+        alert.showAndWait();
+    }
+    
+    private void enviarAlerta(String message){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setHeaderText(null);
+        alert.setTitle("Warning");
+        alert.setContentText(message);
         alert.showAndWait();
     }
  
