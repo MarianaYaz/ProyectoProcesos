@@ -86,7 +86,25 @@ public class RegistroEncargadoController implements Initializable {
             value = false;
             mensajeAlerta.mostrarMensajeCamposInvalidos("El encargado ya se encuentra registrado");
         }
-            
+        if(camposInvalidos(encargado)){
+            value = false;
+           
+        }          
+        return value;
+    }
+    
+    public boolean camposInvalidos(Encargado encargado){
+        boolean value = false;
+        Validacion validar = new Validacion();
+        MensajeAlerta mensajeAlerta = new MensajeAlerta();
+        if(!validar.validarCurp(encargado.getCurp())){
+            value = true;
+            mensajeAlerta.mostrarMensajeCamposInvalidos("Curp incorrecto");
+        }
+        if(!validar.validarCampo(encargado.getNombre())){
+            value = true; 
+           mensajeAlerta.mostrarMensajeCamposInvalidos("Inserte un nombre valido");
+        }
         return value;
     }
     
