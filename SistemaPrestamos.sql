@@ -97,6 +97,9 @@ INSERT INTO prestamo (idPrestamista, nombrePrestamista, fechaPrestamo,motivo,hor
 VALUES ('S19014045','David Alexander Mijangos Paredes', '2020-05-27', 'clase de diseño de software', '13:30', 'CC2');
 UPDATE Laptop SET estado = 'Prestado' WHERE clave = 'FEI-LAP-102';
 INSERT INTO PrestamoLaptop(idPrestamo, claveDispositivo) VALUES ('1','FEI-LAP-102');
+CREATE TABLE IF NOT EXISTS Credenciales(
+correoElectronico varchar(100) NOT NULL, contrasenia varchar(255) NOT NULL, tipo varchar(50) NOT NULL,
+primary key (correoElectronico));
 INSERT INTO Credenciales(correoElectronico,contrasenia,tipo) VALUES("mari@hotmail.com",hex(AES_ENCRYPT("12345",'key')),"Jefe");
 /*SELECT * FROM prestamoLaptop;
 select * from prestamo;

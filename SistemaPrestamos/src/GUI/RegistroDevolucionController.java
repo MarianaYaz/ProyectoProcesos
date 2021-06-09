@@ -86,7 +86,7 @@ public class RegistroDevolucionController implements Initializable {
     @FXML
     private void guardarDevolucion(ActionEvent event){
         if(!validarCamposVacios()){
-            if(validarInformacion()){
+            if(validarInformacion() && validarHora(tfHoraDevolucion.getText())){
                 String comentarios = textAreaComentarios.getText();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 String fechaDevolucion = dpFechaDevolucion.getValue().format(formatter);
@@ -175,7 +175,7 @@ public class RegistroDevolucionController implements Initializable {
     private boolean validarCamposVacios(){  
         boolean value=false;
           if(textAreaComentarios.getText().isEmpty() || cbPresentaProblema.getSelectionModel().getSelectedIndex() < 0
-             || dpFechaDevolucion.getValue()== null || tfHoraDevolucion.getText().isEmpty()){
+             || dpFechaDevolucion.getValue()== null || tfHoraDevolucion.getText().isEmpty() || cbDispositivos.getSelectionModel().getSelectedIndex() < 0){
               value=true;
           }
           return value;
@@ -186,16 +186,6 @@ public class RegistroDevolucionController implements Initializable {
         if(findInvalidField(textAreaComentarios.getText())){
             enviarAlerta("Comentarios tiene caracteres inválidos ");
             value=false;
-        }
-        
-        if(findMissingSelection(cbDispositivos)){
-            enviarAlerta("Falta seleccionar el dispositivo a devolver");
-            value = false;
-        }
-        
-        if(findMissingSelection(cbPresentaProblema)){
-            enviarAlerta("Falta seleccionar si el dispositivo presenta o no problema");
-            value = false;
         }
         
         return value;
@@ -211,17 +201,21 @@ public class RegistroDevolucionController implements Initializable {
         return value;  
     }
     
-    private boolean findMissingSelection(ComboBox cbToValidate){
-        boolean value = false;
-        if(cbToValidate.getSelectionModel().getSelectedIndex() < 0){
-            value = true;
-        }
-        return value;
+    private boolean validarHora(String hora){ 
+        boolean value=false;
+        Pattern pattern = Pattern.compile("[0-2][0-3]:[0-5][0-9]");
+        Matcher mather = pattern.matcher(hora);
+        if(mather.find()){  
+            value=true;
+        }else{
+            enviarAlerta("El formato de hora debe ser HH:MM");
+        }   
+        return value; 
+        
     }
     
-    
     private void enviarAlertaGuardado(){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
         alert.setTitle("Información guardada");
         alert.setContentText("La devolución ha sido guardado con exito");
